@@ -16,6 +16,9 @@ structure Cover where
   cover_map_is_continuous : cover_map.continuous = true
 
 
+def ApplyTopoMap (map: TopoMap) (s: TopoElement) : TopoElement t :=
+
+
 -- Let's define two sample spaces
 def spaceA : TopoSpace := { connected := true, path_connected := true }
 def spaceB : TopoSpace := { connected := false, path_connected := false }
