@@ -1,43 +1,41 @@
+import Mathlib.Data.Set.Basic -- Import the library for Set notation
 
 structure TopoSpace where
-  connected : Bool
-  path_connected : Bool
+  carrier : Type u
+  is_connected : Bool
+  is_path_connected : Bool
 
-structure TopoMap where
-  source_space : TopoSpace
-  target_space : TopoSpace
-  continuous : Bool
+structure TopoElement (ts: TopoSpace) where
+  topo_space := ts
 
-structure TopoElement where
-  topo_space : TopoElement
+structure TopoMap (source_ target_: TopoSpace) where
+  is_continuous : Bool
+  source_space := source_
+  target_space := target_
+  apply : source_space.carrier -> target_space.carrier
+  reverse_apply : target_space.carrier -> Set source_space.carrier
 
-structure Cover where
-  cover_map : TopoMap
-  cover_map_is_continuous : cover_map.continuous = true
+structure Cover {Y X: TopoSpace} (map: TopoMap Y X) where
+  cover_map := map
+  cover_map_is_continuous : cover_map.is_continuous = true
+
+-- variable (is_connected_cover: ∀ (coverL Cover))
+
+variable {Y X: TopoSpace}
+
+variable {phi: TopoMap Y X}
+
+-- variable {c: Cover phi}
+
+def is_connected_cover (c: Cover phi) : Prop :=
+  c.cover_map.source_space.is_connected = true
+
+theorem check_is_connected_cover (c: Cover phi) : is_connected_cover c <-> c.cover_map.source_space.is_connected = true := by rfl
 
 
-def ApplyTopoMap (map: TopoMap) (s: TopoElement) : TopoElement t :=
 
 
--- Let's define two sample spaces
-def spaceA : TopoSpace := { connected := true, path_connected := true }
-def spaceB : TopoSpace := { connected := false, path_connected := false }
 
--- 1. A map that IS continuous
-def continuousMap : TopoMap :=
-  { source_space := spaceA, target_space := spaceB, continuous := true }
+-- variable (is_connected_cover: Cover phi -> Prop)
 
--- 2. A map that is NOT continuous
-def discontinuousMap : TopoMap :=
-  { source_space := spaceA, target_space := spaceB, continuous := false }
-
--- Now, let's try to build a Cover with each map.
-
--- ✅ This works!
--- We must provide a proof for `is_continuous`.
--- Since `continuousMap.continuous` is `true`, the goal is to prove `true = true`.
--- The proof `rfl` (reflexivity) solves this easily.
-def validCover : Cover := {
-  cover_map := continuousMap,
-  cover_map_is_continuous := rfl -- Proof that true = true
-}
+-- variable (check_is_connected_cover: ∀ (cover: Cover phi), (is_connected_cover cover) <-> cover.cover_map.source_space.is_connected)
