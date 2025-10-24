@@ -8,6 +8,9 @@ structure TopoMap where
   target_space : TopoSpace
   continuous : Bool
 
+structure TopoElement where
+  topo_space : TopoElement
+
 structure Cover where
   cover_map : TopoMap
   cover_map_is_continuous : cover_map.continuous = true
