@@ -1,5 +1,7 @@
+namespace _ySet
 
 class ySet (T: Type) where
+  -- carrier: Type u := T
   is_element: T -> Prop
 
 instance {T : Type} : (Membership T) (ySet T) where
@@ -83,6 +85,49 @@ theorem intersection_complement
   }
   set_complement set (intersection subset_collection) = union subset_c_collection :=
   sorry
+
+theorem is_self_subset (set: ySet T) : is_subset set set := sorry
+
+
+
+class ySetMap {sT tT: Type} (source_set: ySet sT) (target_set: ySet tT) where
+  map : sT -> tT
+  reverse_map : tT -> ySet sT :=
+    fun y => {
+      is_element := fun x => map x = y
+    }
+
+  map_set : ySet sT -> ySet tT :=
+    fun S => {
+      is_element :=
+        fun y => ∃ x ∈ S, map x = y
+    }
+  reverse_map_set : ySet tT -> ySet sT :=
+    fun S => {
+      is_element :=
+        fun x => (map x) ∈ S
+    }
+
+
+def is_injective (map: ySetMap S T) : Prop :=
+  ∀ a ∈ S, ∀ b ∈ S, map.map a = map.map b -> a = b
+
+def is_surjective (map: ySetMap S T) : Prop :=
+  ∀ a, a ∈ T -> ∃ s, s ∈ S ∧ map.map s = a
+
+def is_bijective (map: ySetMap S T) : Prop :=
+  is_injective map ∧ is_surjective map
+
+theorem set_equality0 (S0 S1: ySet T) :
+  ((∀ x0, x0 ∈ S0 -> x0 ∈ S1) ∧ (∀ x1, x1 ∈ S1 -> x1 ∈ S0)) <-> S0 = S1 :=
+  sorry
+
+def yRat: ySet Rat := {
+  is_element :=
+    fun _ => true
+}
+
+end _ySet
 
 -- macro lhs:term:65 " ⊗ " rhs:term:65 : term =>
 --   -- This is the rewrite rule.
