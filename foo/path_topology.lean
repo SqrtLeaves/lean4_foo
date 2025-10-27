@@ -1,7 +1,7 @@
 import foo.topology
 import foo.real_topology
 open _ySet
-open _TopoMap
+-- open _TopoMap
 namespace _TopoSpace
 
 def is_path {TS: TopoSpace T} (path: TopoMap real_path_topology TS) := is_continuous path

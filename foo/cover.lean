@@ -1,22 +1,25 @@
 import foo.topology
 
-structure Cover (Y X : TopoSpace) extends TopoMap Y X where
-  cover_map_is_continuous : is_continuous = true
+namespace _Cover
+  open _TopoSpace
+  def is_cover {Yc Xc: Type} (Y: TopoSpace Yc) (X: TopoSpace Xc) (map: TopoMap Y X) : Prop :=
 
 
--- variable (is_connected_cover: ∀ (coverL Cover))
+end _Cover
 
-variable {Y X : TopoSpace}
+-- -- variable (is_connected_cover: ∀ (coverL Cover))
 
-variable {phi : TopoMap Y X}
+-- variable {Y X : TopoSpace}
 
--- variable {c: Cover phi}
+-- variable {phi : TopoMap Y X}
 
-def is_connected_cover (c : Cover Y X) : Prop :=
-  c.source_space.is_connected = true
+-- -- variable {c: Cover phi}
 
-theorem check_is_connected_cover (c : Cover Y X) :
-  is_connected_cover c <-> c.source_space.is_connected = true := by rfl
+-- def is_connected_cover (c : Cover Y X) : Prop :=
+--   c.source_space.is_connected = true
+
+-- theorem check_is_connected_cover (c : Cover Y X) :
+--   is_connected_cover c <-> c.source_space.is_connected = true := by rfl
 
 
 

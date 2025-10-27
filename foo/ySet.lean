@@ -33,6 +33,11 @@ def union {T: Type} (S: ySet (ySet T)) : ySet T := {
   is_element := fun (t : T) => ∃ s, s ∈ S ∧ t ∈ s
 }
 
+def disjoint_union {T: Type} (S: ySet (ySet T)) : ySet (T × ySet T) := {
+  is_element := fun p =>
+    let (t, s) := p
+    s ∈ S ∧ t ∈ s
+}
 def intersection {T: Type} (S: ySet (ySet T)) : ySet T := {
   is_element := fun (t : T) => (∀ s, s ∈ S -> t ∈ s)
 }

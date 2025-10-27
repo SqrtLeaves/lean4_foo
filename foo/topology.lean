@@ -66,11 +66,6 @@ namespace _TopoSpace
     opens_are_subsets_of_base := sorry
   }
 
-end _TopoSpace
-
-namespace _TopoMap
-
-  def TopoSpace := _TopoSpace.TopoSpace
 
   class TopoMap {tS tT: Type} (source_space : TopoSpace tS) (target_space : TopoSpace tT) extends
     ySetMap source_space.base_set target_space.base_set
@@ -84,4 +79,4 @@ namespace _TopoMap
   def is_homeo (map: TopoMap S T) : Prop :=
     is_continuous map ∧ is_open_map map ∧ is_bijective map.toySetMap
 
-namespace _TopoMap
+end _TopoSpace
