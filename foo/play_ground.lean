@@ -4,4 +4,4 @@
 --   | tt: Nat -> Nat
 --   | green
 
-#check List
+#check Proof
