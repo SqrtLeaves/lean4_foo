@@ -1,11 +1,13 @@
 import foo.topology
 
-namespace _Cover
-  open _TopoSpace
+-- namespace _Cover
+--   open _TopoSpace
   def is_cover {Yc Xc: Type} (Y: TopoSpace Yc) (X: TopoSpace Xc) (map: TopoMap Y X) : Prop :=
+    ∀ (x: Xc), x ∈ X.base_set -> ∃ Nx, x ∈ Nx ∧ X.is_open Nx
+    -- ∃ (open_stacks: ySet (ySet Yc)) ->
 
 
-end _Cover
+-- end _Cover
 
 -- -- variable (is_connected_cover: ∀ (coverL Cover))
 

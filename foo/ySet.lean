@@ -1,4 +1,4 @@
-namespace _ySet
+-- namespace _ySet
 
 class ySet (T: Type) where
   -- carrier: Type u := T
@@ -25,17 +25,17 @@ def power_set {T: Type} (set: ySet T) : ySet (ySet T) := {
   is_element := fun (subset: ySet T) => is_subset subset set
 }
 
-def list_union {T: Type} (L: List (ySet T)) : ySet T := {
-  is_element := fun (t : T) => ∃ s, s ∈ L ∧ t ∈ s
-}
-
 def union {T: Type} (S: ySet (ySet T)) : ySet T := {
   is_element := fun (t : T) => ∃ s, s ∈ S ∧ t ∈ s
 }
 
-def disjoint_union {T: Type} (S: ySet (ySet T)) : ySet (T × ySet T) := {
+def list_union {T: Type} (L: List (ySet T)) : ySet T := {
+  is_element := fun (t : T) => ∃ s, s ∈ L ∧ t ∈ s
+}
+
+def disjoint_union {T: Type} (S: ySet (ySet T)) : ySet ((ySet T) × T) := {
   is_element := fun p =>
-    let (t, s) := p
+    let (s, t) := p
     s ∈ S ∧ t ∈ s
 }
 def intersection {T: Type} (S: ySet (ySet T)) : ySet T := {
@@ -132,7 +132,7 @@ def yRat: ySet Rat := {
     fun _ => true
 }
 
-end _ySet
+-- end _ySet
 
 -- macro lhs:term:65 " ⊗ " rhs:term:65 : term =>
 --   -- This is the rewrite rule.

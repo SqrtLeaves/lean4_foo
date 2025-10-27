@@ -1,8 +1,8 @@
 import foo.ySet
 
-open _ySet
+-- open _ySet
 
-namespace _TopoSpace
+-- namespace _TopoSpace
 
   class TopoSpace (T: Type) where
     base_set : ySet T -- the underlying set
@@ -79,4 +79,4 @@ namespace _TopoSpace
   def is_homeo (map: TopoMap S T) : Prop :=
     is_continuous map ∧ is_open_map map ∧ is_bijective map.toySetMap
 
-end _TopoSpace
+-- end _TopoSpace

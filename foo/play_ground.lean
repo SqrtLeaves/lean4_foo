@@ -4,4 +4,4 @@
 --   | tt: Nat -> Nat
 --   | green
 
-#check Proof
+#check Type 2 × Nat
