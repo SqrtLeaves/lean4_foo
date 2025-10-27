@@ -1,10 +1,19 @@
 import foo.topology
 
 -- namespace _Cover
---   open _TopoSpace
-  def is_cover {Yc Xc: Type} (Y: TopoSpace Yc) (X: TopoSpace Xc) (map: TopoMap Y X) : Prop :=
-    ∀ (x: Xc), x ∈ X.base_set -> ∃ Nx, x ∈ Nx ∧ X.is_open Nx
-    -- ∃ (open_stacks: ySet (ySet Yc)) ->
+-- open _TopoSpace
+
+-- def is_cover {Yc Xc: Type} (Y: TopoSpace Yc) (X: TopoSpace Xc) (map: TopoMap Y X) : Prop :=
+--   ∀ (x: Xc), x ∈ X.base_set -> ∃ Nx, x ∈ Nx ∧ X.is_open Nx ->
+--   ∃ fbx, fbx = map.reverse_map_set Nx -> ∃ (open_stacks: ySet (ySet Yc))
+
+def is_cover {Yc Xc: Type} (Y: TopoSpace Yc) (X: TopoSpace Xc) (map :TopoMap Y X) : Prop :=
+    ∀ (x: Xc), x ∈ X.base_set -> ∃ Nx, x ∈ Nx ∧ X.is_open Nx ->
+    ∃ fbx, fbx = map.reverse_map_set Nx ->
+    ∃ (open_stacks: ySet (ySet Yc)), fbx = union open_stacks ->
+    ∀ U, U ∈ open_stacks ∧ (is_bijective (ySetMap_restriction map.toySetMap (sorry)))
+
+  -- ∃ (open_stacks: ySet (ySet Yc)) ->
 
 
 -- end _Cover

@@ -67,8 +67,8 @@ import foo.ySet
   }
 
 
-  class TopoMap {tS tT: Type} (source_space : TopoSpace tS) (target_space : TopoSpace tT) extends
-    ySetMap source_space.base_set target_space.base_set
+  class TopoMap {tS tT: Type} (source_space : TopoSpace tS) (target_space : TopoSpace tT)
+    extends ySetMap source_space.base_set target_space.base_set
 
   def is_continuous {tS tT: Type} {S : TopoSpace tS} {T : TopoSpace tT} (map: TopoMap S T) : Prop :=
     ∀ NT, T.is_open NT -> S.is_open (map.reverse_map_set NT)

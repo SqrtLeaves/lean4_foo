@@ -113,6 +113,13 @@ class ySetMap {sT tT: Type} (source_set: ySet sT) (target_set: ySet tT) where
         fun x => (map x) ∈ S
     }
 
+def ySetMap_restriction (f: ySetMap A B) (A': Type) (_: A' ⊆  A) : (ySetMap A' B) := {
+  map := fun a => f.map a
+}
+
+
+-- class map_restriction
+
 
 def is_injective (map: ySetMap S T) : Prop :=
   ∀ a ∈ S, ∀ b ∈ S, map.map a = map.map b -> a = b
