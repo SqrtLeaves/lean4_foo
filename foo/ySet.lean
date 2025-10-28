@@ -93,8 +93,6 @@ theorem intersection_complement
 
 theorem is_self_subset (set: ySet T) : is_subset set set := sorry
 
-
-
 class ySetMap {sT tT: Type} (source_set: ySet sT) (target_set: ySet tT) where
   map : sT -> tT
   reverse_map : tT -> ySet sT :=

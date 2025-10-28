@@ -97,4 +97,7 @@ import foo.ySet
   def is_homeo (map: TopoMap S T) : Prop :=
     is_continuous map ∧ is_open_map map ∧ is_bijective map.toySetMap
 
+  def is_embed_homeo (map: TopoMap S T) : Prop :=
+    is_continuous map ∧ is_injective map.toySetMap
+
 -- end _TopoSpace
