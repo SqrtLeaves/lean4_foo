@@ -47,7 +47,7 @@ def list_intersection {T: Type} (L: List (ySet T)) : ySet T := {
 }
 
 def emptyset {T: Type} : ySet T := {
-  is_element := fun (t: T) => False
+  is_element := fun (_: T) => False
 }
 
 notation lhs:65 " ⊆ " rhs:65 => is_subset lhs rhs
@@ -113,10 +113,10 @@ class ySetMap {sT tT: Type} (source_set: ySet sT) (target_set: ySet tT) where
         fun x => (map x) ∈ S
     }
 
-def ySetMap_restriction (f: ySetMap A B) (A': Type) (_: A' ⊆  A) : (ySetMap A' B) := {
-  map := fun a => f.map a
-}
-
+def ySetMap_restriction {Ac Bc: Type} {A: ySet Ac} {B: ySet Bc}
+    (f: ySetMap A B) (A': ySet Ac)  (_: A' ⊆  A) : (ySetMap A' B) := {
+    map := fun a => f.map a
+  }
 
 -- class map_restriction
 

@@ -1,7 +1,4 @@
 import foo.topology
-open _TopoSpace
--- open _TopoMap
-open _ySet
 
 def right_real_ray_closed (z: Rat) : ySet Rat := {
     is_element :=
@@ -43,10 +40,10 @@ def real_topology_basis : ySet (ySet Rat) := {
 
 def real_topology : TopoSpace Rat := {
     base_set := yRat
-    open_set_collection := {
-        is_element :=
-            fun U => ∃ F, F ⊆ real_topology_basis ∧ U = union F
-    }
+    is_open := (
+        fun U => ∃ F, F ⊆ real_topology_basis ∧ U = union F
+    )
+
     base_is_open := by
         constructor
 
