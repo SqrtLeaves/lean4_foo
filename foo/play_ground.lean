@@ -4,4 +4,9 @@
 --   | tt: Nat -> Nat
 --   | green
 
-#check Type 2 × Nat
+-- class tt where
+--   a: Nat
+--   fr : Nat -> tt := fun (x: Nat) => {a := x}
+
+-- namespace tt
+--   st

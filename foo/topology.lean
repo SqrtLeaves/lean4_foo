@@ -66,8 +66,25 @@ import foo.ySet
   class TopoMap {tS tT: Type} (source_space : TopoSpace tS) (target_space : TopoSpace tT)
     extends ySetMap source_space.base_set target_space.base_set
 
+  -- def TopoMap_img {Bc: Type} {B: TopoSpace Bc} (f: TopoMap A B) : TopoSpace Bc  :=
+  -- let a := 1
+  -- {
+  --   base_set := B.base_set
+  -- }
+
+  def TopoMap_composition (m0: TopoMap A B) (m1: TopoMap B C) : TopoMap A C := {
+    map := fun a => m1.map (m0.map a)
+  }
+
   def TopoMap_restriction {Ac Bc: Type} {A: TopoSpace Ac} {B: TopoSpace Bc}
     (f: TopoMap A B) (A': TopoSpace Ac)  (_: A'.base_set ⊆  A.base_set) : (TopoMap A' B) := {
+    map := fun a => f.map a
+  }
+
+  def TopoMap_img_refine
+    {Ac Bc: Type} {A: TopoSpace Ac} {B: TopoSpace Bc}
+    (f: TopoMap A B) (B': TopoSpace Bc) (_: B'.base_set = ySetMap_img f.toySetMap)
+    : (TopoMap A B') := {
     map := fun a => f.map a
   }
 

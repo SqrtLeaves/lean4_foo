@@ -113,10 +113,18 @@ class ySetMap {sT tT: Type} (source_set: ySet sT) (target_set: ySet tT) where
         fun x => (map x) ∈ S
     }
 
+def ySetMap_img {Bc: Type} {B: ySet Bc} (f: ySetMap A B) : ySet Bc := {
+  is_element := fun b => ∃ a, a ∈ A ∧ f.map a = b
+}
+
 def ySetMap_restriction {Ac Bc: Type} {A: ySet Ac} {B: ySet Bc}
     (f: ySetMap A B) (A': ySet Ac)  (_: A' ⊆  A) : (ySetMap A' B) := {
     map := fun a => f.map a
   }
+
+def ySetMap_composition (m0: ySetMap A B) (m1: ySetMap B C) : ySetMap A C := {
+  map := fun a => m1.map (m0.map a)
+}
 
 -- class map_restriction
 
