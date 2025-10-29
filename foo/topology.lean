@@ -9,6 +9,9 @@ namespace NS_Topology
 
     is_open : ySet T -> Prop
 
+    is_open_neighbor : (ySet T) -> T -> Prop :=
+      fun Nx x => is_open Nx ∧ x ∈ Nx
+
     is_closed : ySet T -> Prop :=
       fun set => is_open (set_complement base_set set)
 
@@ -101,17 +104,36 @@ namespace NS_Topology
     map := fun a => m1.map (m0.map a)
   }
 
-  def TopoMap_restriction {Ac Bc: Type} {A: TopoSpace Ac} {B: TopoSpace Bc}
-    (f: TopoMap A B) (A': TopoSpace Ac)  (_: A'.base_set ⊆  A.base_set) : (TopoMap A' B) := {
-    map := fun a => f.map a
-  }
+  -- for f: A -> B, given A', return f(A')
+  def TopoMap_image
+    {Ac Bc: Type} {B: TopoSpace Bc} {A: TopoSpace Ac} {A': ySet Ac}
+    (f: TopoMap A B) (_: A' ⊆ A.base_set) : ySet Bc :=
+      f.map_set A'
 
-  def TopoMap_img_refine
-    {Ac Bc: Type} {A: TopoSpace Ac} {B: TopoSpace Bc}
-    (f: TopoMap A B) (B': TopoSpace Bc) (_: B'.base_set = ySetMap_img f.toySetMap)
-    : (TopoMap A B') := {
-    map := fun a => f.map a
-  }
+  -- for f: A -> B, given B', return f^{-1}(B')
+  -- this is just the reverse_map with restriction that B' ⊆ B
+  def TopoMap_preimage
+    {Ac: Type} {A: TopoSpace Ac}
+    (f: TopoMap A B) (_: B' ⊆ B.base_set) : ySet Ac :=
+      f.reverse_map_set B'
+
+  -- for f: A -> B, given A' ⊆ A, return f': A' -> B
+  def TopoMap_restriction
+    {Ac Bc: Type} {A A': TopoSpace Ac} {B: TopoSpace Bc}
+    (f: TopoMap A B)
+    (_: A'.base_set ⊆  A.base_set)
+      : (TopoMap A' B) := {
+        map := fun a => f.map a
+      }
+
+  -- for f: A -> B, given B' ⊆ B, and A' = reverse_f(B'), return f': A' -> B
+  def TopoMap_reverse_restriction
+    {Ac Bc: Type} {A A': TopoSpace Ac} {B B': TopoSpace Bc}
+    (f: TopoMap A B)
+    (h: B'.base_set ⊆  B.base_set) (_: A'.base_set = TopoMap_preimage f (sorry: B'.base_set ⊆  B.base_set))
+      : (TopoMap A' B') := {
+        map := fun a => f.map a
+      }
 
   def is_continuous {tS tT: Type} {S : TopoSpace tS} {T : TopoSpace tT} (map: TopoMap S T) : Prop :=
     ∀ NT, T.is_open NT -> S.is_open (map.reverse_map_set NT)
@@ -147,5 +169,8 @@ namespace NS_Topology
     r s := ∃ (map: TopoMap s.1 s.2), is_continuous map ∧ is_open_map map ∧ is_injective map.toySetMap
 
     notation "is_embed_homeo" rhs:65 => is_embed_homeo.r rhs
+
+  def is_homeo_to_DiscreteTopology {Xc: Type} (X: TopoSpace Xc) : Prop :=
+    ∃ (T: Type), ∃ (S: ySet T), ∃ (I: TopoSpace T) (_: I = DiscreteTopology S), is_homeo (X, I)
 
 end NS_Topology
