@@ -10,3 +10,15 @@
 
 -- namespace tt
 --   st
+
+
+namespace ns0
+def fooY (x: Nat) := x + 1
+
+
+def f2 (x: Nat) := fooY x
+
+end ns0
+
+
+def f3 (x: Nat) := ns0.fooY x

@@ -25,26 +25,48 @@ def power_set {T: Type} (set: ySet T) : ySet (ySet T) := {
   is_element := fun (subset: ySet T) => is_subset subset set
 }
 
-def union {T: Type} (S: ySet (ySet T)) : ySet T := {
-  is_element := fun (t : T) => ∃ s, s ∈ S ∧ t ∈ s
-}
+class _union (T: Type) (C: outParam Type) where
+    r: T -> ySet C
 
-def list_union {T: Type} (L: List (ySet T)) : ySet T := {
-  is_element := fun (t : T) => ∃ s, s ∈ L ∧ t ∈ s
-}
+instance: _union (ySet (ySet T)) T where
+    r S := {is_element := fun (t : T) => (∃ s, s ∈ S ∧ t ∈ s)}
+
+instance: _union (List (ySet T)) T where
+    r L := {is_element := fun (t : T) => (∃ s, s ∈ L ∧ t ∈ s)}
+
+notation "union" rhs:65 => _union.r rhs
+
+
 
 def disjoint_union {T: Type} (S: ySet (ySet T)) : ySet ((ySet T) × T) := {
   is_element := fun p =>
     let (s, t) := p
     s ∈ S ∧ t ∈ s
 }
-def intersection {T: Type} (S: ySet (ySet T)) : ySet T := {
-  is_element := fun (t : T) => (∀ s, s ∈ S -> t ∈ s)
+
+def product_union {Ac Bc: Type} (A: ySet Ac) (B: ySet Bc) : ySet (Ac × Bc) := {
+  is_element :=
+    fun e => e.1 ∈ A ∧ e.2 ∈ B
 }
 
-def list_intersection {T: Type} (L: List (ySet T)) : ySet T := {
-  is_element := fun (t : T) => (∀ s, s ∈ L -> t ∈ s)
-}
+class _intersection (T: Type) (C: outParam Type) where
+    r: T -> ySet C
+
+instance: _intersection (ySet (ySet T)) T where
+    r S := {is_element := fun (t : T) => (∀ s, s ∈ S -> t ∈ s)}
+
+instance: _intersection (List (ySet T)) T where
+    r L := {is_element := fun (t : T) => (∀ s, s ∈ L -> t ∈ s)}
+
+notation "intersection" rhs:65 => _intersection.r rhs
+
+-- def intersection {T: Type} (S: ySet (ySet T)) : ySet T := {
+--   is_element := fun (t : T) => (∀ s, s ∈ S -> t ∈ s)
+-- }
+
+-- def list_intersection {T: Type} (L: List (ySet T)) : ySet T := {
+--   is_element := fun (t : T) => (∀ s, s ∈ L -> t ∈ s)
+-- }
 
 def emptyset {T: Type} : ySet T := {
   is_element := fun (_: T) => False

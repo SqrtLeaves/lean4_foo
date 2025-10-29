@@ -1,5 +1,7 @@
 import foo.topology
 
+open NS_Topology
+
 def right_real_ray_closed (z: Rat) : ySet Rat := {
     is_element :=
         fun x => x >= z

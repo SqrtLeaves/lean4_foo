@@ -1,6 +1,8 @@
 import foo.topology
 import foo.real_topology
 
+open NS_Topology
+
 def is_path {TS: TopoSpace T} (path: TopoMap real_path_topology TS) := is_continuous path
 
 def is_path_connected (TS: TopoSpace C) : Prop :=
