@@ -4,6 +4,8 @@ import foo.ySet
 
 namespace NS_Topology
 
+  class ABS
+
   class TopoSpace (T: Type) where
     base_set : ySet T -- the underlying set
 
